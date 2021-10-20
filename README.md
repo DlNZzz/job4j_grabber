@@ -1,2 +1,3 @@
 # job4j_grabber
-https://app.travis-ci.com/DlNZzz/job4j_grabber.svg?branch=main
+[![Build Status](https://app.travis-ci.com/DlNZzz/job4j_grabber.svg?branch=main)](https://app.travis-ci.com/github/DlNZzz/job4j_grabber)
+[![codecov](https://codecov.io/gh/DlNZzz/job4j_design/branch/master/graph/badge.svg?token=G74YKRWSYK)](https://codecov.io/gh/DlNZzz/job4j_design)

@@ -1,7 +1,6 @@
 package ru.job4j.quartz;
 
 import org.quartz.*;
-import org.quartz.impl.JobDetailImpl;
 import org.quartz.impl.StdSchedulerFactory;
 
 import java.io.IOException;
@@ -19,19 +18,25 @@ import static org.quartz.SimpleScheduleBuilder.*;
 
 public class AlertRabbit {
 
+    private static Properties config;
     private Connection cn;
 
     public static void main(String[] args) {
         try {
+            AlertRabbit alertRabbit = new AlertRabbit();
+            config = alertRabbit.getProperties("rabbit.properties");
             List<Long> store = new ArrayList<>();
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
             JobDataMap data = new JobDataMap();
             data.put("store", store);
-            Properties config = new AlertRabbit().init("rabbit.properties");
-            JobDetail jobDetail = new JobDetailImpl(Rabbit.class)
-                    .usingJobData(config)
+            JobDetail jobDetail = newJob(Rabbit.class)
+                    .usingJobData(alertRabbit.init())
                     .build();
+            Trigger trigger2 = newTrigger()
+                    .startNow()
+                    .build();
+            scheduler.scheduleJob(jobDetail, trigger2);
             JobDetail job = newJob(Rabbit.class)
                     .usingJobData(data)
                     .build();
@@ -51,22 +56,32 @@ public class AlertRabbit {
         }
     }
 
-    public Properties init(String file) {
+    public Properties getProperties(String file) {
         Properties config = null;
         try (InputStream inputStream =
-                AlertRabbit.class.getClassLoader().getResourceAsStream(file)) {
+                     AlertRabbit.class.getClassLoader().getResourceAsStream(file)) {
             config = new Properties();
             config.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return config;
+    }
+
+    public JobDataMap init() {
+        try {
             Class.forName(config.getProperty("driver-class-name"));
             cn = DriverManager.getConnection(
                     config.getProperty("url"),
                     config.getProperty("username"),
                     config.getProperty("password")
             );
-        } catch (ClassNotFoundException | SQLException | IOException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-        return config;
+        JobDataMap jobDataMap = new JobDataMap();
+        jobDataMap.put("init", cn);
+        return new JobDataMap();
     }
 
     public static class Rabbit implements Job {
@@ -78,8 +93,7 @@ public class AlertRabbit {
         @Override
         public void execute(JobExecutionContext context) throws JobExecutionException {
             System.out.println("Rabbit runs here ...");
-            List<Long> store = (List<Long>) context.getJobDetail().getJobDataMap().get("store");
-            store.add(System.currentTimeMillis());
+            Connection connection = (Connection) context.getJobDetail().getJobDataMap();
         }
     }
 }

@@ -5,9 +5,7 @@ import org.quartz.impl.StdSchedulerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -33,10 +31,14 @@ public class AlertRabbit {
             JobDetail jobDetail = newJob(Rabbit.class)
                     .usingJobData(alertRabbit.init())
                     .build();
+            SimpleScheduleBuilder times2 = simpleSchedule()
+                    .repeatSecondlyForTotalCount(1, 1)
+                    .repeatForever();
             Trigger trigger2 = newTrigger()
                     .startNow()
+                    .withSchedule(times2)
                     .build();
-            scheduler.scheduleJob(jobDetail, trigger2);
+            //scheduler.scheduleJob(jobDetail, trigger2);
             JobDetail job = newJob(Rabbit.class)
                     .usingJobData(data)
                     .build();
@@ -93,7 +95,21 @@ public class AlertRabbit {
         @Override
         public void execute(JobExecutionContext context) throws JobExecutionException {
             System.out.println("Rabbit runs here ...");
-            Connection connection = (Connection) context.getJobDetail().getJobDataMap();
+            List<Long> store = (List<Long>) context.getJobDetail().getJobDataMap().get("store");
+            if (store != null) {
+                store.add(System.currentTimeMillis());
+            }
+            Connection connection = (Connection) context.getJobDetail().getJobDataMap().get("init");
+            if (connection != null) {
+                System.out.println(connection + " ++++++++++++++++++++++++++++");
+                try (PreparedStatement statement = connection.prepareStatement(
+                        "insert into rabbit(timestamp) values (?);")) {
+                    statement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+                    statement.execute();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
         }
     }
 }

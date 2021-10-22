@@ -95,8 +95,8 @@ public class AlertRabbit {
             if (store != null) {
                 store.add(System.currentTimeMillis());
             }
-            try (Connection connection =
-                         (Connection) context.getJobDetail().getJobDataMap().get("init");) {
+            Connection connection = (Connection) context.getJobDetail().getJobDataMap().get("init");
+            try {
                 if (connection != null && !connection.isClosed()) {
                     try (PreparedStatement statement = connection.prepareStatement(
                             "insert into rabbit(created_date) values (?);")) {

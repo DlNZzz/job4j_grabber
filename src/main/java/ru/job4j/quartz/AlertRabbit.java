@@ -67,19 +67,13 @@ public class AlertRabbit {
         return config;
     }
 
-    public Connection init() {
-        Connection con = null;
-        try {
-            Class.forName(config.getProperty("driver-class-name"));
-            con = DriverManager.getConnection(
-                    config.getProperty("url"),
-                    config.getProperty("username"),
-                    config.getProperty("password")
-            );
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-        return con;
+    public Connection init() throws ClassNotFoundException, SQLException {
+        Class.forName(config.getProperty("driver-class-name"));
+        return DriverManager.getConnection(
+                config.getProperty("url"),
+                config.getProperty("username"),
+                config.getProperty("password")
+        );
     }
 
     public static class Rabbit implements Job {

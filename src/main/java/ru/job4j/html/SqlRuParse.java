@@ -8,18 +8,13 @@ import org.jsoup.select.Elements;
 public class SqlRuParse {
     public static void main(String[] args) throws Exception {
         Document doc = Jsoup.connect("https://www.sql.ru/forum/job-offers").get();
-        Elements row = doc.select(".forumTable").get(0).child(0).children();
-        int count = 0;
-        for (Element tr : row) {
-            if (count > 0) {
-                Element element = tr.child(1).child(0);
-                System.out.println(element.attr("href"));
-                System.out.println(element.text());
-                element = tr.child(5);
-                System.out.println(element.text());
-            } else {
-                count++;
-            }
+        Elements row = doc.select(".postslisttopic");
+        for (Element td : row) {
+            Element element = td.child(0);
+            System.out.println(element.attr("href"));
+            System.out.println(element.text());
+            element = td.parent().child(5);
+            System.out.println(element.text());
         }
     }
 }

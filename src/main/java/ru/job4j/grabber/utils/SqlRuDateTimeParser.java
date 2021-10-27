@@ -30,7 +30,7 @@ public class SqlRuDateTimeParser implements DateTimeParser {
         String[] parseArray = parse.split(" ");
         parseArray[1] = MONTHS.getOrDefault(parseArray[1], parseArray[1]);
         parse = Arrays.stream(parseArray).reduce((x, y) -> x + " " + y).get();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yy, HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yy, HH:mm");
         try {
             if (Integer.parseInt(parseArray[1]) >= 0) {
                 formatter = DateTimeFormatter.ofPattern("dd M yy, HH:mm");
@@ -41,6 +41,6 @@ public class SqlRuDateTimeParser implements DateTimeParser {
 
     public static void main(String[] args) {
         SqlRuDateTimeParser sqlRuDateTimeParser = new SqlRuDateTimeParser();
-        System.out.println(sqlRuDateTimeParser.parse("12 вчера 21, 12:19"));
+        System.out.println(sqlRuDateTimeParser.parse("9 сен 21, 12:14"));
     }
 }

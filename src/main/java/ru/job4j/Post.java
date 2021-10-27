@@ -1,5 +1,11 @@
 package ru.job4j;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -10,6 +16,20 @@ public class Post {
     private String link;
     private String description;
     private LocalDateTime created;
+
+    public void dataExtraction(String link) {
+        this.link = link;
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(link).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Element msgBody = doc.select(".msgBody").get(1);
+        System.out.println(msgBody.text());
+        Element msgFooter = doc.select(".msgFooter").get(0);
+        System.out.println(msgFooter.text());
+    }
 
     public int getId() {
         return id;

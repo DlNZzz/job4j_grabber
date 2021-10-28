@@ -24,7 +24,7 @@ public class SqlRuParse implements Parse {
 
     public static void main(String[] args) throws Exception {
         SqlRuParse sqlRuParse = new SqlRuParse(new SqlRuDateTimeParser());
-        List<Post> list = sqlRuParse.list("https://www.sql.ru/forum/job-offers/3");
+        List<Post> list = sqlRuParse.list("https://www.sql.ru/forum/job-offers");
         for (Post post : list) {
             System.out.println(post);
         }

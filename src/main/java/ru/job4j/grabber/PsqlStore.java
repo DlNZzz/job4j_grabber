@@ -55,15 +55,33 @@ public class PsqlStore implements Store, AutoCloseable {
     @Override
     public void save(Post post) {
         String sql = "insert into schema(name, text, link, created) values (?, ?, ?, ?);";
+        if (!availabilityPost(post)) {
+            try (PreparedStatement statement = cnn.prepareStatement(sql)) {
+                statement.setString(1, post.getTitle());
+                statement.setString(2, post.getDescription());
+                statement.setString(3, post.getLink());
+                statement.setTimestamp(4, Timestamp.valueOf(post.getCreated()));
+                statement.execute();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    }
+
+    private boolean availabilityPost(Post post) {
+        boolean availability = false;
+        String sql = "select link from schema where link = ?;";
         try (PreparedStatement statement = cnn.prepareStatement(sql)) {
-            statement.setString(1, post.getTitle());
-            statement.setString(2, post.getDescription());
-            statement.setString(3, post.getLink());
-            statement.setTimestamp(4, Timestamp.valueOf(post.getCreated()));
-            statement.execute();
+            statement.setString(1, post.getLink());
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    availability = true;
+                }
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return availability;
     }
 
     @Override

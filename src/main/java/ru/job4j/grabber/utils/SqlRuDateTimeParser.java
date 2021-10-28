@@ -20,27 +20,31 @@ public class SqlRuDateTimeParser implements DateTimeParser {
             Map.entry("окт", "октября"),
             Map.entry("ноя", "ноября"),
             Map.entry("дек", "декабря"),
-            Map.entry("сегодня", java.time.LocalDateTime.now().getMonth().getValue() + ""),
-            Map.entry("вчера",
-                    java.time.LocalDateTime.now().minusDays(1).getMonth().getValue() + "")
+            Map.entry("сегодня", java.time.LocalDateTime.now().getDayOfMonth()
+                    + " " + java.time.LocalDateTime.now().getMonth().getValue()
+                    + " " + java.time.LocalDateTime.now().getYear()),
+            Map.entry("вчера", java.time.LocalDateTime.now().minusDays(1).getDayOfMonth()
+                    + " " + java.time.LocalDateTime.now().minusDays(1).getMonth().getValue()
+                    + " " + java.time.LocalDateTime.now().minusDays(1).getYear())
             );
 
     @Override
     public LocalDateTime parse(String parse) {
-        String[] parseArray = parse.split(" ");
-        parseArray[1] = MONTHS.getOrDefault(parseArray[1], parseArray[1]);
-        parse = Arrays.stream(parseArray).reduce((x, y) -> x + " " + y).get();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yy, HH:mm");
-        try {
-            if (Integer.parseInt(parseArray[1]) >= 0) {
-                formatter = DateTimeFormatter.ofPattern("dd M yy, HH:mm");
-            }
-        } catch (NumberFormatException ignored) { }
+        String[] parseArray = parse.split(" ");
+        if (parseArray.length == 2) {
+            parseArray = parse.split(", ");
+            parseArray[0] = MONTHS.get(parseArray[0]);
+            formatter = DateTimeFormatter.ofPattern("d M yyyy HH:mm");
+        } else {
+            parseArray[1] = MONTHS.getOrDefault(parseArray[1], parseArray[1]);
+        }
+        parse = Arrays.stream(parseArray).reduce((x, y) -> x + " " + y).get();
         return LocalDateTime.parse(parse, formatter);
     }
 
     public static void main(String[] args) {
         SqlRuDateTimeParser sqlRuDateTimeParser = new SqlRuDateTimeParser();
-        System.out.println(sqlRuDateTimeParser.parse("9 сен 21, 12:14"));
+        System.out.println(sqlRuDateTimeParser.parse("25 окт 21, 16:14"));
     }
 }

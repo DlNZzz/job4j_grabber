@@ -56,12 +56,18 @@ public class PsqlStore implements Store, AutoCloseable {
     public void save(Post post) {
         String sql = "insert into schema(name, text, link, created) values (?, ?, ?, ?);";
         if (!availabilityPost(post)) {
-            try (PreparedStatement statement = cnn.prepareStatement(sql)) {
+            try (PreparedStatement statement =
+                         cnn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 statement.setString(1, post.getTitle());
                 statement.setString(2, post.getDescription());
                 statement.setString(3, post.getLink());
                 statement.setTimestamp(4, Timestamp.valueOf(post.getCreated()));
                 statement.execute();
+                try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        int id = generatedKeys.getInt(1);
+                    }
+                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

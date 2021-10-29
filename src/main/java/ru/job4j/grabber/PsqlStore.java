@@ -65,7 +65,7 @@ public class PsqlStore implements Store, AutoCloseable {
                 statement.execute();
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
-                        int id = generatedKeys.getInt(1);
+                        post.setId(generatedKeys.getInt(1));
                     }
                 }
             } catch (SQLException throwables) {

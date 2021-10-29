@@ -38,7 +38,7 @@ public class Grabber implements Grab {
     }
 
     @Override
-    public void init(Parse parse, Store store, Scheduler scheduler) throws SchedulerException {
+    public void init(Parse parse, Store store, Scheduler scheduler) {
         JobDataMap data = new JobDataMap();
         data.put("store", store);
         data.put("parse", parse);
@@ -52,7 +52,11 @@ public class Grabber implements Grab {
                 .startNow()
                 .withSchedule(times)
                 .build();
-        scheduler.scheduleJob(job, trigger);
+        try {
+            scheduler.scheduleJob(job, trigger);
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
     }
 
     public static class GrabJob implements Job {
@@ -65,7 +69,10 @@ public class Grabber implements Grab {
             if (parse != null && store != null) {
                 List<Post> list = parse.list(CFG.getProperty("link"));
                 for (Post post : list) {
-                    store.save(post);
+                    String title = post.getTitle();
+                    if (title.contains("Java") && !title.contains("Javascript")) {
+                        store.save(post);
+                    }
                 }
             }
         }

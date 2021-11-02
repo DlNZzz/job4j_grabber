@@ -10,6 +10,6 @@ public class SolutionTest {
     @Test
     public void testBB() {
         int a = new Solution().bb();
-        assertThat(a, is(2));
+        assertThat(a, is(3));
     }
 }

@@ -1,9 +1,17 @@
 package ru.job4j.gc;
 
-public class User {    //8 + 4 + 32 = 44 + 4 = 48
+public class User {
 
-    private int age;    //4
-    private String name;    //8 + 4 * 3 + 4 + 8 = 32
+    private int age;
+    private String name;
+
+    public User() {
+    }
+
+    public User(int age, String name) {
+        this.age = age;
+        this.name = name;
+    }
 
     @Override
     protected void finalize() throws Throwable {
@@ -11,6 +19,47 @@ public class User {    //8 + 4 + 32 = 44 + 4 = 48
     }
 
     public static void main(String[] args) {
-        User user = new User();
+        //User user = new User(21, "");  //  64
+        //User user2 = new User(21, "qqq");  //  72
     }
 }
+
+new User();
+    Заголовок: 12 байт
+    int: 4 байта
+Итого: 16 байт
+
+new User(21, "");
+    Заголовок: 12 байт
+    int: 4 байта
+    new String()
+        Заголовок: 12 байт
+        Поля int: 4 байта * 3 = 12 байт
+        Ссылочная переменная на объект массива: 4 байта
+        12 + 12 + 4 = 28, дополнить до кратности 8
+        Итого: 32 байта
+
+        new char[0]
+        Заголовок: 12 байт + 4 байта на длину массива = 16 байт
+        Примитивы char: 2 байта * 0 = 0 байт
+        Итого: 16 байта
+    Итого, new String("") = 48 байт
+Итого: 64 байта
+
+new User(21, "qqq");
+    Заголовок: 12 байт
+    int: 4 байта
+    new String()
+        Заголовок: 12 байт
+        Поля int: 4 байта * 3 = 12 байт
+        Ссылочная переменная на объект массива: 4 байта
+        12 + 12 + 4 = 28, дополнить до кратности 8
+        Итого: 32 байта
+
+        new char[3]
+        Заголовок: 12 байт + 4 байта на длину массива = 16 байт
+        Примитивы char: 2 байта * 3 = 6 байт
+        Выравнивание для кратности 8: 2 байта
+        Итого: 24 байта
+    Итого, new String("") = 56 байт
+Итого: 72 байта

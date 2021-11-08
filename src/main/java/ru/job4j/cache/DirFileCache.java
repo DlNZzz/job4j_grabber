@@ -16,7 +16,7 @@ public class DirFileCache extends AbstractCache<String, String> {
 
     @Override
     protected String load(String key) {
-        var value = cache.getOrDefault(key, null);
+        var value = getCache().getOrDefault(key, null);
         if (null != value) {
             return String.valueOf(value);
         }
@@ -28,7 +28,7 @@ public class DirFileCache extends AbstractCache<String, String> {
                 text += reader.readLine();
                 text += System.lineSeparator();
             }
-            cache.put(key, new SoftReference<>(text));
+            getCache().put(key, new SoftReference<>(text));
             fileReader.close();
             reader.close();
         } catch (FileNotFoundException e) {

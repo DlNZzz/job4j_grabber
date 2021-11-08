@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.ref.SoftReference;
 
 public class DirFileCache extends AbstractCache<String, String> {
 
@@ -15,17 +16,19 @@ public class DirFileCache extends AbstractCache<String, String> {
 
     @Override
     protected String load(String key) {
-        String value = String.valueOf(cache.get(key));
-        if (value != null) {
-            return value;
+        var value = cache.getOrDefault(key, null);
+        if (null != value) {
+            return String.valueOf(value);
         }
+        String text = "";
         try {
-            FileReader fileReader = new FileReader(key);
+            FileReader fileReader = new FileReader(cachingDir);
             BufferedReader reader = new BufferedReader(fileReader);
-            value = "";
             while (reader.ready()) {
-                value += reader.readLine();
+                text += reader.readLine();
+                text += System.lineSeparator();
             }
+            cache.put(key, new SoftReference<>(text));
             fileReader.close();
             reader.close();
         } catch (FileNotFoundException e) {
@@ -33,7 +36,7 @@ public class DirFileCache extends AbstractCache<String, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return value;
+        return text;
     }
 
 }

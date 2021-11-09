@@ -6,11 +6,7 @@ import java.util.Map;
 
 public abstract class AbstractCache<K, V> {
 
-    private final Map<K, SoftReference<V>> cache = new HashMap<>();
-
-    public Map<K, SoftReference<V>> getCache() {
-        return cache;
-    }
+    protected final Map<K, SoftReference<V>> cache = new HashMap<>();
 
     public void put(K key, V value) {
         cache.put(key, new SoftReference<>(value));

@@ -15,7 +15,7 @@ public class MaxMin {
     public <T> T min(List<T> value, Comparator<T> comparator) {
         T min = value.get(0);
         for (T val : value) {
-            min = comparator.compare(min, val) > 0 ? val : min;
+            min = comparator.compare(min, val) < 0 ? min : val;
         }
         return min;
     }

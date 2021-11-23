@@ -53,11 +53,3 @@ public class CinemaTest {
         cinema.buy(account, 1, 1, date);
     }
 }
-
-
-
-
-
-
-
-

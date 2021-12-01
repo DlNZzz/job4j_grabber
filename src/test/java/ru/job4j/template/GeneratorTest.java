@@ -20,7 +20,7 @@ public class GeneratorTest {
     }
 
     @Ignore
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void produceException() {
         String template = "I am a ${name}, Who are ${subject}?";
         Map<String, String> map = Map.of("subject", "b");
@@ -29,7 +29,7 @@ public class GeneratorTest {
     }
 
     @Ignore
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void produceExceptionTwo() {
         String template = "I am a ${name}";
         Map<String, String> map = Map.of("name", "r", "subject", "b");

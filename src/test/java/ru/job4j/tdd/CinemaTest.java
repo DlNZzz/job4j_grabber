@@ -33,7 +33,7 @@ public class CinemaTest {
     }
 
     @Ignore
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void buyTwo() {
         Account account = new AccountCinema();
         Cinema cinema = new Cinema3D();
@@ -44,7 +44,7 @@ public class CinemaTest {
     }
 
     @Ignore
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void date() {
         Account account = new AccountCinema();
         Cinema cinema = new Cinema3D();

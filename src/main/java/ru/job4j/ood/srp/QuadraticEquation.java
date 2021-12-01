@@ -7,7 +7,6 @@ public class QuadraticEquation implements Math {
 
     }
 
-    @SuppressWarnings("checkstyle:NoWhitespaceBefore")
     @Override
     public int solution(int... a) {
         return 0;

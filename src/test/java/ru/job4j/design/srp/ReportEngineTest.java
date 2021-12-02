@@ -17,8 +17,8 @@ public class ReportEngineTest {
         StringBuilder expect = new StringBuilder()
                 .append("<tr>Name; Salary;</tr>")
                 .append(System.lineSeparator() + "<tr>")
-                .append(worker.getName()).append(";")
-                .append(worker.getSalary()).append(";")
+                .append(worker.getName())
+                .append(worker.getSalary() * 0.87)
                 .append("</tr>" + System.lineSeparator());
         assertThat(engine.generate(em -> true), is(expect.toString()));
     }

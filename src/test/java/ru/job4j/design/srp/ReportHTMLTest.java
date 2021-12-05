@@ -1,39 +1,22 @@
 package ru.job4j.design.srp;
 
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.Matchers.is;
 import org.junit.Test;
 
 import javax.xml.bind.JAXBException;
 import java.util.Calendar;
 
-public class ReportEngineTest {
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+
+public class ReportHTMLTest {
 
     @Test
-    public void whenOldGenerated() throws JAXBException {
+    public void generate() throws JAXBException {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
-        Report engine = new ReportEngine(store);
-        StringBuilder expect = new StringBuilder()
-                .append("Name; Hired; Fired; Salary;")
-                .append(System.lineSeparator())
-                .append(worker.getName()).append(";")
-                .append(worker.getHired()).append(";")
-                .append(worker.getFired()).append(";")
-                .append(worker.getSalary()).append(";")
-                .append(System.lineSeparator());
-        assertThat(engine.generate(em -> true), is(expect.toString()));
-    }
-/*
-    @Test
-    public void whenOldGeneratedw() {
-        MemStore store = new MemStore();
-        Calendar now = Calendar.getInstance();
-        Employee worker = new Employee("Ivan", now, now, 100);
-        store.add(worker);
-        Report engine = new ReportEngine(store);
+        Report engine = new ReportHTML(store);
         StringBuilder expect = new StringBuilder()
                 .append("<tr>Name; Salary;</tr>")
                 .append(System.lineSeparator() + "<tr>")
@@ -44,7 +27,7 @@ public class ReportEngineTest {
     }
 
     @Test
-    public void whenOldGeneratedTwo() {
+    public void generatedTwo() throws JAXBException {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
@@ -53,7 +36,7 @@ public class ReportEngineTest {
         store.add(worker2);
         store.add(worker);
         store.add(worker3);
-        Report engine = new ReportEngine(store);
+        Report engine = new ReportHTML(store);
         StringBuilder expect = new StringBuilder()
                 .append("<tr>Name; Salary;</tr>")
                 .append(System.lineSeparator() + "<tr>")
@@ -70,6 +53,4 @@ public class ReportEngineTest {
                 .append("</tr>" + System.lineSeparator());
         assertThat(engine.generate(em -> true), is(expect.toString()));
     }
-
- */
 }

@@ -16,14 +16,6 @@ public class MemStore implements Store {
 
     @Override
     public List<Employee> findBy(Predicate<Employee> filter) {
-        return employees.stream().filter(filter).sorted(new Comparator<Employee>() {
-            @Override
-            public int compare(Employee o1, Employee o2) {
-                if (o1.getSalary() == o2.getSalary()) {
-                    return 0;
-                }
-                return o2.getSalary() > o1.getSalary() ? 1 : -1;
-            }
-        }).collect(Collectors.toList());
+        return employees.stream().filter(filter).collect(Collectors.toList());
     }
 }

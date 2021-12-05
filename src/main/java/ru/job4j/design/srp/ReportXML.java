@@ -21,8 +21,10 @@ public class ReportXML implements Report {
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         String xml = "";
         try (StringWriter writer = new StringWriter()) {
-            marshaller.marshal(store.findBy(filter), writer);
-            xml = writer.getBuffer().toString();
+            for (Employee employee : store.findBy(filter)) {
+                marshaller.marshal(employee, writer);
+                xml = writer.getBuffer().toString();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

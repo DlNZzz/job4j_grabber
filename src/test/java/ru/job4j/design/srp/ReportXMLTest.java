@@ -22,12 +22,14 @@ public class ReportXMLTest {
         Report reportXML = new ReportXML(store);
         StringBuilder expected = new StringBuilder()
                 .append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>")
-                .append("\n<employee>")
-                .append("\n    <fired>2020-01-05T00:00:00+03:00</fired>")
-                .append("\n    <hired>2020-01-05T00:00:00+03:00</hired>")
-                .append("\n    <name>A</name>")
-                .append("\n    <salary>100.0</salary>")
-                .append("\n</employee>")
+                .append("\n<employees>")
+                .append("\n    <employees>")
+                .append("\n        <fired>2020-01-05T00:00:00+03:00</fired>")
+                .append("\n        <hired>2020-01-05T00:00:00+03:00</hired>")
+                .append("\n        <name>A</name>")
+                .append("\n        <salary>100.0</salary>")
+                .append("\n    </employees>")
+                .append("\n</employees>")
                 .append("\n");
         assertThat(reportXML.generate(filter -> true), is(expected.toString()));
     }

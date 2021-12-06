@@ -16,15 +16,13 @@ public class ReportXML implements Report {
     }
 
     public String generate(Predicate<Employee> filter) throws JAXBException {
-        JAXBContext context = JAXBContext.newInstance(Employee.class);
+        JAXBContext context = JAXBContext.newInstance(Employees.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         String xml = "";
         try (StringWriter writer = new StringWriter()) {
-            for (Employee employee : store.findBy(filter)) {
-                marshaller.marshal(employee, writer);
-                xml = writer.getBuffer().toString();
-            }
+            marshaller.marshal(new Employees(store.findBy(filter)), writer);
+            xml = writer.getBuffer().toString();
         } catch (IOException e) {
             e.printStackTrace();
         }

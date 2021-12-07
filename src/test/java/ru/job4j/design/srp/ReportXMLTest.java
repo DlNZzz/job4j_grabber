@@ -18,7 +18,7 @@ public class ReportXMLTest {
     @Test
     public void generate() throws JAXBException {
         MemStore store = new MemStore();
-        ZonedDateTime currentDate = ZonedDateTime.now( ZoneOffset.UTC );
+        ZonedDateTime currentDate = ZonedDateTime.now(ZoneOffset.UTC);
         Calendar date = new GregorianCalendar(2020, Calendar.JANUARY, 5);
         date.add(Calendar.MILLISECOND, -date.getTimeZone().getOffset(date.getTimeInMillis()));
         Employee employee = new Employee("A", date, date, 100);

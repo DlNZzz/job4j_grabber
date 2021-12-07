@@ -12,7 +12,6 @@ import static org.junit.Assert.assertThat;
 
 public class ReportXMLTest {
 
-    @Ignore
     @Test
     public void generate() throws JAXBException {
         MemStore store = new MemStore();

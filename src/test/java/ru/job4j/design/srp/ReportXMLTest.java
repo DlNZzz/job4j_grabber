@@ -4,6 +4,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.xml.bind.JAXBException;
+import java.text.SimpleDateFormat;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Calendar;

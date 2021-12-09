@@ -1,14 +1,9 @@
 package ru.job4j.design.srp;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.xml.bind.JAXBException;
-import java.text.SimpleDateFormat;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.hamcrest.Matchers.is;
@@ -16,7 +11,6 @@ import static org.junit.Assert.assertThat;
 
 public class ReportXMLTest {
 
-    @Ignore
     @Test
     public void generate() throws JAXBException {
         MemStore store = new MemStore();
@@ -28,12 +22,11 @@ public class ReportXMLTest {
         StringBuilder expected = new StringBuilder()
                 .append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>")
                 .append("\n<employees>")
-                .append("\n    <employees>")
-                .append("\n        <fired>2020-01-04T21:00:00+03:00</fired>")
-                .append("\n        <hired>2020-01-04T21:00:00+03:00</hired>")
-                .append("\n        <name>A</name>")
-                .append("\n        <salary>100.0</salary>")
-                .append("\n    </employees>")
+                .append("\n    <employees "
+                        + "name=\"A\" "
+                        + "hired=\"2020-01-04T21:00:00+03:00\" "
+                        + "fired=\"2020-01-04T21:00:00+03:00\" "
+                        + "salary=\"100.0\"/>")
                 .append("\n</employees>")
                 .append("\n");
         assertThat(reportXML.generate(filter -> true), is(expected.toString()));

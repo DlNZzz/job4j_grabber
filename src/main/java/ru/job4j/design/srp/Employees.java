@@ -1,6 +1,6 @@
 package ru.job4j.design.srp;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.util.List;
 
 @XmlRootElement(name = "employees")

@@ -1,13 +1,16 @@
 package ru.job4j.strategy;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class Main {
+public class ControlQualityTest {
 
-    public static void main(String[] args) {
+    @Test
+    public void distribute() {
         List<Store> list = new ArrayList<>();
         list.add(new Warehouse());
         list.add(new Shop());

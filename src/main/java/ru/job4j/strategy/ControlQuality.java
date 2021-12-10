@@ -1,14 +1,24 @@
 package ru.job4j.strategy;
 
+import java.util.List;
+
 public class ControlQuality {
 
-    private Strategy strategy;
+    private List<Store> listStore;
 
-    public ControlQuality(Strategy strategy) {
-        this.strategy = strategy;
+    public ControlQuality(List<Store> listStore) {
+        this.listStore = listStore;
     }
 
-    public void controlQuality(Food food) {
-        strategy.doOperation(food);
+    public void controlQuality(Store store, Food food) {
+        store.doOperation(food);
+    }
+
+    public void distribute(Food food) {
+        for (Store s : listStore) {
+            if (s.accept(food)) {
+                controlQuality(s, food);
+            }
+        }
     }
 }

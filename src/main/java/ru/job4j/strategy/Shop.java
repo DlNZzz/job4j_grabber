@@ -1,6 +1,6 @@
 package ru.job4j.strategy;
 
-public class Shop implements Strategy {
+public class Shop implements Store {
 
     private int discount;
 
@@ -12,7 +12,17 @@ public class Shop implements Strategy {
     }
 
     @Override
+    public boolean accept(Food food) {
+        return false;
+    }
+
+    @Override
     public void doOperation(Food food) {
 
+    }
+
+    @Override
+    public boolean add(Food food) {
+        return false;
     }
 }

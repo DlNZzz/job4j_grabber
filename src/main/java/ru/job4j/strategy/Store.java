@@ -6,8 +6,6 @@ public interface Store {
 
     boolean accept(Food food);
 
-    void doOperation(Food food);
-
     boolean add(Food food);
 
     default double getExpirationPercent(Food food) {

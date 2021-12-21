@@ -1,8 +1,12 @@
 package ru.job4j.strategy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Shop implements Store {
 
     private int discount;
+    private List<Food> shopList = new ArrayList<>();
 
     public Shop() {
     }
@@ -20,24 +24,22 @@ public class Shop implements Store {
         return false;
     }
 
-    @Override
-    public void doOperation(Food food) {
-        if (accept(food)) {
-            if (getExpirationPercent(food) > 75) {
-                add(discount(food, discount));
-            } else {
-                add(food);
-            }
-        }
-    }
-
     public Food discount(Food food, int discount) {
         return food.setDiscount(discount);
     }
 
     @Override
     public boolean add(Food food) {
-
+        if (accept(food)) {
+            if (getExpirationPercent(food) > 75) {
+                add(discount(food, discount));
+            } else {
+                add(food);
+            }
+            return true;
+        }
         return false;
     }
 }
+
+

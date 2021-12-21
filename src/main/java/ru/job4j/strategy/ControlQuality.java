@@ -11,13 +11,13 @@ public class ControlQuality {
     }
 
     public void controlQuality(Store store, Food food) {
-        store.doOperation(food);
+        store.add(food);
     }
 
     public void distribute(Food food) {
         for (Store s : listStore) {
             if (s.accept(food)) {
-                controlQuality(s, food);
+                s.add(food);
             }
         }
     }

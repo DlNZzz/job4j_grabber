@@ -17,15 +17,11 @@ public class Warehouse implements Store {
     }
 
     @Override
-    public void doOperation(Food food) {
-        if (accept(food)) {
-            add(food);
-        }
-    }
-
-    @Override
     public boolean add(Food food) {
-        warehouseList.add(food);
+        if (accept(food)) {
+            warehouseList.add(food);
+            return true;
+        }
         return false;
     }
 }

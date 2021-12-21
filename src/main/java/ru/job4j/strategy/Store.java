@@ -15,11 +15,9 @@ public interface Store {
         int allDays = (expiryDate.get(Calendar.YEAR) - createDate.get(Calendar.YEAR)) * 365
                 + (expiryDate.get(Calendar.MONTH) - createDate.get(Calendar.MONTH)) * 30
                 + expiryDate.get(Calendar.DAY_OF_MONTH) - createDate.get(Calendar.DAY_OF_MONTH);
-        System.out.println(allDays);
         int days = (currentDate.get(Calendar.YEAR) - createDate.get(Calendar.YEAR)) * 365
                 + (currentDate.get(Calendar.MONTH) - createDate.get(Calendar.MONTH)) * 30
                 + currentDate.get(Calendar.DAY_OF_MONTH) - createDate.get(Calendar.DAY_OF_MONTH);
-        System.out.println(days);
         if (days < 0) {
             return 0;
         }

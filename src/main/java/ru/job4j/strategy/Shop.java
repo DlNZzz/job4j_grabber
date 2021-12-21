@@ -32,9 +32,9 @@ public class Shop implements Store {
     public boolean add(Food food) {
         if (accept(food)) {
             if (getExpirationPercent(food) > 75) {
-                add(discount(food, discount));
+                shopList.add(discount(food, discount));
             } else {
-                add(food);
+                shopList.add(food);
             }
             return true;
         }

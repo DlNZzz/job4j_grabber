@@ -48,8 +48,9 @@ public class Element {
 
     @Override
     public String toString() {
-        return "Element{" +
-                "str='" + str + '\'' +
-                '}';
+        return "Element{"
+                + "str='" + str
+                + '\''
+                + '}';
     }
 }

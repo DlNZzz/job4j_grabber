@@ -4,72 +4,55 @@ import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
+import static ru.job4j.isp.menu.Print.NEW_LINE;
 
 public class MenuTest {
 
+    private final Menu tree = new Menu("1", new Action());
+
     @Test
     public void testFindBy() {
-        Element element1 = new Element("1");
-        Element element4 = new Element("4");
-        Element element5 = new Element("5");
-        Menu tree = new Menu(element1);
-        tree.add(element1, new Element("2"));
-        tree.add(element1, new Element("3"));
-        tree.add(element1, element4);
-        tree.add(element4, element5);
-        tree.add(element5, new Element("6"));
-        assertThat(
-                tree.findBy(element5),
-                is(new Element("5"))
-        );
+        tree.add("1", "2", new Action());
+        tree.add("1", "3", new Action());
+        tree.add("1", "4", new Action());
+        tree.add("4", "5", new Action());
+        tree.add("5", "6", new Action());
+        assertNotNull(tree.findBy("5"));
     }
 
     @Test
     public void testAddTrue() {
-        Menu tree = new Menu(new Element("1"));
         assertTrue(
-                tree.add(new Element("1"), new Element("2"))
+                tree.add("1", "2", new Action())
         );
     }
 
     @Test
     public void testAddTrueTwo() {
-        Element element1 = new Element("1");
-        Element element2 = new Element("2");
-        Menu tree = new Menu(element1);
-        tree.add(element1, element2);
-        assertTrue(
-                tree.add(element2, new Element("3"))
-        );
+        tree.add("1", "2", new Action());
+        assertTrue(tree.add("2", "3", new Action()));
     }
 
     @Test
     public void testAddFalse() {
-        Menu tree = new Menu(new Element("1"));
-        assertFalse(
-                tree.add(new Element("2"), new Element("3"))
-        );
+        assertFalse(tree.add("2", "3", new Action()));
     }
 
     @Test
     public void testPrint() {
-        Element element1 = new Element("1");
-        Element element4 = new Element("4");
-        Element element5 = new Element("5");
-        Menu tree = new Menu(element1);
-        tree.add(element1, new Element("2"));
-        tree.add(element1, new Element("3"));
-        tree.add(element1, element4);
-        tree.add(element4, element5);
-        tree.add(element5, new Element("6"));
+        tree.add("1", "2", new Action());
+        tree.add("1", "3", new Action());
+        tree.add("1", "4", new Action());
+        tree.add("4", "5", new Action());
+        tree.add("5", "6", new Action());
         assertThat(
                 tree.print(),
-                is("Element{str='1'}\n"
-                        + "Element{str='2'}\n"
-                        + "Element{str='3'}\n"
-                        + "Element{str='4'}\n"
-                        + "Element{str='5'}\n"
-                        + "Element{str='6'}\n")
+                is("Element{str='1'}" + NEW_LINE
+                        + "Element{str='2'}" + NEW_LINE
+                        + "Element{str='3'}" + NEW_LINE
+                        + "Element{str='4'}" + NEW_LINE
+                        + "Element{str='5'}" + NEW_LINE
+                        + "Element{str='6'}" + NEW_LINE)
         );
     }
 }

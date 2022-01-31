@@ -1,10 +1,10 @@
-package ru.job4j.isp.menu;
+package ru.job4j.ood.isp.menu.two;
 
 import java.util.*;
 
 public abstract class TreeElement {
 
-    public boolean add(String parent, String child, Action action) {
+    public boolean add(String parent, String child, ActionDelegate action) {
         return false;
     }
 
@@ -12,26 +12,26 @@ public abstract class TreeElement {
         return null;
     }
 
-    public Action select(String itemName) {
+    public ActionDelegate select(String itemName) {
         return null;
     }
 
     static class Element {
 
-        private Action action;
+        private ActionDelegate action;
         private String str;
         private final List<Element> children = new ArrayList<>();
 
-        public Element(String str, Action action) {
+        public Element(String str, ActionDelegate action) {
             this.action = action;
             this.str = str;
         }
 
-        public Action getAction() {
+        public ActionDelegate getAction() {
             return action;
         }
 
-        public void setAction(Action action) {
+        public void setAction(ActionDelegate action) {
             this.action = action;
         }
 

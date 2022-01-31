@@ -1,15 +1,12 @@
-package ru.job4j.isp.menu;
+package ru.job4j.ood.isp.menu.two;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
 
 public class Menu extends TreeElement implements Print {
 
     private final Element element;
 
-    public Menu(String element, Action action) {
+    public Menu(String element, ActionDelegate action) {
         this.element = new Element(element, action);
     }
 
@@ -27,7 +24,7 @@ public class Menu extends TreeElement implements Print {
     }
 
     @Override
-    public boolean add(String parent, String child, Action action) {
+    public boolean add(String parent, String child, ActionDelegate action) {
         boolean rsl = false;
         Element element = findBy(parent);
         if (element != null) {
@@ -53,7 +50,7 @@ public class Menu extends TreeElement implements Print {
         return rsl;
     }
 
-    public Action select(String itemName) {
+    public ActionDelegate select(String itemName) {
         Element element = findBy(itemName);
         return element.getAction();
     }

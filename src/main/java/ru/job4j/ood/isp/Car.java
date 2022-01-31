@@ -1,4 +1,4 @@
-package ru.job4j.isp;
+package ru.job4j.ood.isp;
 
 public interface Car {
 

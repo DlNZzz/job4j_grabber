@@ -26,7 +26,8 @@ public class SimpleMenuTest {
         );
         assertEquals(
                 new Menu.MenuItemInfo(
-                        "Купить продукты", List.of("Купить хлеб", "Купить молоко"), STUB_ACTION, "1.1."
+                        "Купить продукты",
+                        List.of("Купить хлеб", "Купить молоко"), STUB_ACTION, "1.1."
                 ),
                 menu.select("Купить продукты").get()
         );

@@ -8,21 +8,54 @@ public class SimpleMenu implements Menu {
 
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
+        Optional<ItemInfo> optionalItemInfo = findItem(parentName);
+        if (optionalItemInfo.isPresent()) {
+            optionalItemInfo
+                    .get()
+                    .menuItem
+                    .getChildren()
+                    .add(new SimpleMenuItem(childName, actionDelegate));
+            return true;
+        }
         return false;
     }
 
     @Override
     public Optional<MenuItemInfo> select(String itemName) {
-        return null;
+        Optional<ItemInfo> optionalItemInfo = findItem(itemName);
+        if (optionalItemInfo.isPresent()) {
+            ItemInfo itemInfo = optionalItemInfo.get();
+            return Optional.of(new MenuItemInfo(itemInfo.menuItem, itemInfo.number));
+        }
+        return Optional.empty();
     }
 
     @Override
     public Iterator<MenuItemInfo> iterator() {
-        return null;
+        DFSIterator dfsIterator = new DFSIterator();
+        return new Iterator<MenuItemInfo>() {
+            @Override
+            public boolean hasNext() {
+                return dfsIterator.hasNext();
+            }
+
+            @Override
+            public MenuItemInfo next() {
+                ItemInfo itemInfo = dfsIterator.next();
+                return new MenuItemInfo(itemInfo.menuItem, itemInfo.number);
+            }
+        };
     }
 
     private Optional<ItemInfo> findItem(String name) {
-        return null;
+        DFSIterator dfsIterator = new DFSIterator();
+        if (dfsIterator.hasNext()) {
+            ItemInfo itemInfo = dfsIterator.next();
+            if (itemInfo.menuItem.getName().equals(name)) {
+                return Optional.of(itemInfo);
+            }
+        }
+        return Optional.empty();
     }
 
     private static class SimpleMenuItem implements MenuItem {

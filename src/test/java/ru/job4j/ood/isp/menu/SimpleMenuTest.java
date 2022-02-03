@@ -20,7 +20,7 @@ public class SimpleMenuTest {
         menu.add("Купить продукты", "Купить молоко", STUB_ACTION);
         assertEquals(
                 new Menu.MenuItemInfo(
-                        "Сходить в магазин", List.of("Купить продукты"), STUB_ACTION, "1."
+                        "Сходить в магазин", List.of("Купить продукты"), STUB_ACTION, "1.1."
                 ),
                 menu.select("Сходить в магазин").get()
         );
@@ -39,5 +39,6 @@ public class SimpleMenuTest {
         );
         menu.forEach(i -> System.out.println(i.getNumber() + i.getName()));
     }
+
 
 }

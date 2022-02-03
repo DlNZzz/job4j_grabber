@@ -13,9 +13,6 @@ public class SimpleMenu implements Menu {
         }
         Optional<ItemInfo> optionalItemInfo = findItem(parentName);
         if (optionalItemInfo.isPresent()) {
-            System.out.println(optionalItemInfo.get().menuItem.getName() + " - - add");
-        }
-        if (optionalItemInfo.isPresent()) {
             optionalItemInfo
                     .get()
                     .menuItem
@@ -54,17 +51,13 @@ public class SimpleMenu implements Menu {
     }
 
     private Optional<ItemInfo> findItem(String name) {
-        //System.out.println(rootElements);
         DFSIterator dfsIterator = new DFSIterator();
         while (dfsIterator.hasNext()) {
             ItemInfo itemInfo = dfsIterator.next();
-            System.out.println(itemInfo.menuItem.getName());
             if (itemInfo.menuItem.getName().equals(name)) {
-                System.out.println("s");
                 return Optional.of(itemInfo);
             }
         }
-        System.out.println("empty");
         return Optional.empty();
     }
 
@@ -122,13 +115,12 @@ public class SimpleMenu implements Menu {
             MenuItem current = stack.removeFirst();
             String lastNumber = numbers.removeFirst();
             List<MenuItem> children = current.getChildren();
-            System.out.println(children + " ----------- children");
             int currentNumber = children.size();
             for (var i = children.listIterator(children.size()); i.hasPrevious();) {
                 stack.addFirst(i.previous());
                 numbers.addFirst(lastNumber.concat(String.valueOf(currentNumber--)).concat("."));
             }
-            return new ItemInfo(current, lastNumber);
+            return new ItemInfo(current, lastNumber.substring(2));
         }
 
     }

@@ -20,7 +20,7 @@ public class SimpleMenuTest {
         menu.add("Купить продукты", "Купить молоко", STUB_ACTION);
         assertEquals(
                 new Menu.MenuItemInfo(
-                        "Сходить в магазин", List.of("Купить продукты"), STUB_ACTION, "1.1."
+                        "Сходить в магазин", List.of("Купить продукты"), STUB_ACTION, "1."
                 ),
                 menu.select("Сходить в магазин").get()
         );
@@ -40,5 +40,31 @@ public class SimpleMenuTest {
         menu.forEach(i -> System.out.println(i.getNumber() + i.getName()));
     }
 
+    @Test
+    public void sout() {
+        Menu menu = new SimpleMenu();
+        menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
+        menu.add(Menu.ROOT, "Покормить собаку", STUB_ACTION);
+        menu.add("Сходить в магазин", "Купить продукты", STUB_ACTION);
+        menu.add("Купить продукты", "Купить хлеб", STUB_ACTION);
+        menu.add("Купить продукты", "Купить молоко", STUB_ACTION);
+        menu.forEach(i -> System.out.println(i.getNumber() + i.getName()));
+    }
 
+    @Test
+    public void select() {
+        Menu menu = new SimpleMenu();
+        menu.add(Menu.ROOT, "b", STUB_ACTION);
+        menu.add("b", "c", STUB_ACTION);
+        menu.add("b", "z", STUB_ACTION);
+        menu.add("b", "q", STUB_ACTION);
+        menu.add("z", "p", STUB_ACTION);
+        assertEquals(
+                new Menu.MenuItemInfo(
+                        "z", List.of("p"), STUB_ACTION, "1.2."
+                ),
+                menu.select("z").get()
+        );
+        menu.forEach(i -> System.out.println(i.getNumber() + i.getName()));
+    }
 }

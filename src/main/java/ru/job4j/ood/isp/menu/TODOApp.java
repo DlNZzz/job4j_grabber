@@ -50,6 +50,8 @@ public class TODOApp {
                 case ("4"):
                     isEmpty = false;
                     break;
+                default:
+                    break;
             }
         }
     }

@@ -1,6 +1,5 @@
 package ru.job4j.ood.isp.menu;
 
-import javax.swing.text.html.Option;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

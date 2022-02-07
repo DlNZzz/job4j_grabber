@@ -45,7 +45,6 @@ public class TODOApp {
                     }
                     break;
                 case ("3"):
-                    menu.forEach(i -> System.out.println(i.getNumber() + i.getName()));
                     Print print = new Print();
                     print.print(menu);
                     break;

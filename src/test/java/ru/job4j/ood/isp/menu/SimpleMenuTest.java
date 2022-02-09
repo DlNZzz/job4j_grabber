@@ -20,20 +20,20 @@ public class SimpleMenuTest {
         menu.add("Купить продукты", "Купить молоко", STUB_ACTION);
         assertEquals(
                 new Menu.MenuItemInfo(
-                        "Сходить в магазин", List.of("Купить продукты"), STUB_ACTION, "1."
+                        "Сходить в магазин", List.of("Купить продукты"), STUB_ACTION, "1.1."
                 ),
                 menu.select("Сходить в магазин").get()
         );
         assertEquals(
                 new Menu.MenuItemInfo(
                         "Купить продукты",
-                        List.of("Купить хлеб", "Купить молоко"), STUB_ACTION, "1.1."
+                        List.of("Купить хлеб", "Купить молоко"), STUB_ACTION, "1.1.1."
                 ),
                 menu.select("Купить продукты").get()
         );
         assertEquals(
                 new Menu.MenuItemInfo(
-                        "Покормить собаку", List.of(), STUB_ACTION, "2."
+                        "Покормить собаку", List.of(), STUB_ACTION, "2.1."
                 ),
                 menu.select("Покормить собаку").get()
         );
@@ -61,7 +61,7 @@ public class SimpleMenuTest {
         menu.add("z", "p", STUB_ACTION);
         assertEquals(
                 new Menu.MenuItemInfo(
-                        "z", List.of("p"), STUB_ACTION, "1.2."
+                        "z", List.of("p"), STUB_ACTION, "1.1.2."
                 ),
                 menu.select("z").get()
         );

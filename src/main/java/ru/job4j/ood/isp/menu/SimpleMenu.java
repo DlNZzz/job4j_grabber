@@ -9,7 +9,10 @@ public class SimpleMenu implements Menu {
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
         if (parentName.equals(ROOT)) {
-            rootElements.add(new SimpleMenuItem(parentName, actionDelegate));
+            MenuItem menuItem = new SimpleMenuItem(parentName, actionDelegate);
+            rootElements.add(menuItem);
+            menuItem.getChildren().add(new SimpleMenuItem(childName, actionDelegate));
+            return true;
         }
         Optional<ItemInfo> optionalItemInfo = findItem(parentName);
         if (optionalItemInfo.isPresent()) {
@@ -120,7 +123,7 @@ public class SimpleMenu implements Menu {
                 stack.addFirst(i.previous());
                 numbers.addFirst(lastNumber.concat(String.valueOf(currentNumber--)).concat("."));
             }
-            return new ItemInfo(current, lastNumber.substring(2));
+            return new ItemInfo(current, lastNumber);
         }
 
     }

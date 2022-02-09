@@ -5,9 +5,7 @@ import java.util.*;
 public class SimpleShopService {
 
     private HashMap<User, Set<Order>> serviceDB = new HashMap<>();
-
     private ShopStore shopStore;
-
     private OrderService orderService;
 
     public SimpleShopService(ShopStore shopStore, OrderService orderService) {

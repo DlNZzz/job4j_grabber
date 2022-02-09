@@ -5,7 +5,6 @@ import java.util.Objects;
 public abstract class BaseEntity {
 
     private int id;
-
     private String name;
 
     public BaseEntity(int id, String name) {

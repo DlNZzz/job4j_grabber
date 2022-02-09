@@ -11,9 +11,7 @@ public class Print implements MenuPrinter {
             StringBuilder stringBuilder = new StringBuilder();
             Menu.MenuItemInfo menuItemInfo = menuItemInfoIterator.next();
             int num = menuItemInfo.getNumber().length() / 2;
-            for (int i = 0; i < num; i++) {
-                stringBuilder.append("----");
-            }
+            stringBuilder.append("----".repeat(num));
             System.out.println(stringBuilder
                     + " " + menuItemInfo.getNumber() + menuItemInfo.getName());
         }

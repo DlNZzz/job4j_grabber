@@ -7,9 +7,7 @@ import java.util.Objects;
 public class Order {
 
     private int id;
-
     private boolean isPayed;
-
     private Map<Integer, Product> products = new HashMap<>();
 
     public boolean add(Product product) {

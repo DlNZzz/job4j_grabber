@@ -17,7 +17,12 @@ public class Shop implements Store {
 
     @Override
     public List<Food> getData() {
-        return shopList;
+        return new ArrayList<>(shopList);
+    }
+
+    @Override
+    public void clear() {
+        shopList.clear();
     }
 
     @Override

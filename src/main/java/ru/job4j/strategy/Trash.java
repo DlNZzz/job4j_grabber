@@ -9,7 +9,12 @@ public class Trash implements Store {
 
     @Override
     public List<Food> getData() {
-        return trashList;
+        return new ArrayList<>(trashList);
+    }
+
+    @Override
+    public void clear() {
+        trashList.clear();
     }
 
     @Override

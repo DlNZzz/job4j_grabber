@@ -6,7 +6,6 @@ import java.util.List;
 public class ControlQuality {
 
     private List<Store> listStore;
-    private List<Food> foods = new ArrayList<>();
 
     public ControlQuality(List<Store> listStore) {
         this.listStore = listStore;
@@ -21,9 +20,10 @@ public class ControlQuality {
     }
 
     public void resort() {
+        List<Food> foods = new ArrayList<>();
         for (Store s : listStore) {
             foods.addAll(s.getData());
-            foods.clear();
+            s.clear();
         }
         for (Food food : foods) {
             distribute(food);

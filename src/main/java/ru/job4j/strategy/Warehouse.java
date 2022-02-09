@@ -9,7 +9,12 @@ public class Warehouse implements Store {
 
     @Override
     public List<Food> getData() {
-        return warehouseList;
+        return new ArrayList<>(warehouseList);
+    }
+
+    @Override
+    public void clear() {
+        warehouseList.clear();
     }
 
     @Override

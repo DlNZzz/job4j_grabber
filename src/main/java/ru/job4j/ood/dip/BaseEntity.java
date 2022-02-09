@@ -4,11 +4,9 @@ import java.util.Objects;
 
 public abstract class BaseEntity {
 
-    @SuppressWarnings("checkstyle:VisibilityModifier")
-    protected int id;
+    private int id;
 
-    @SuppressWarnings("checkstyle:VisibilityModifier")
-    protected String name;
+    private String name;
 
     public BaseEntity(int id, String name) {
         this.id = id;

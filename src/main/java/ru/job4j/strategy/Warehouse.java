@@ -8,6 +8,11 @@ public class Warehouse implements Store {
     private List<Food> warehouseList = new ArrayList<>();
 
     @Override
+    public List<Food> getData() {
+        return warehouseList;
+    }
+
+    @Override
     public boolean accept(Food food) {
         double condition = getExpirationPercent(food);
         if (condition < 25) {

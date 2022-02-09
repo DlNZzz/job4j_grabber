@@ -1,8 +1,12 @@
 package ru.job4j.strategy;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public interface Store {
+
+    List<Food> getData();
 
     boolean accept(Food food);
 

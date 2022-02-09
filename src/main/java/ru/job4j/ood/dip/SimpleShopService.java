@@ -1,9 +1,11 @@
 package ru.job4j.ood.dip;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 public class SimpleShopService {
 
+    private static final Logger LOGGER = Logger.getLogger("Shop logger");
     private HashMap<User, Set<Order>> serviceDB = new HashMap<>();
     private ShopStore shopStore;
     private OrderService orderService;

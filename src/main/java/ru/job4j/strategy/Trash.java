@@ -8,6 +8,11 @@ public class Trash implements Store {
     private List<Food> trashList = new ArrayList<>();
 
     @Override
+    public List<Food> getData() {
+        return trashList;
+    }
+
+    @Override
     public boolean accept(Food food) {
         double condition = getExpirationPercent(food);
         if (condition > 100) {
@@ -24,4 +29,5 @@ public class Trash implements Store {
         }
         return false;
     }
+
 }

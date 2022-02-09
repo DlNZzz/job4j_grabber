@@ -1,6 +1,8 @@
 package ru.job4j.strategy;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class Food {
 

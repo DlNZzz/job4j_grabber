@@ -16,6 +16,11 @@ public class Shop implements Store {
     }
 
     @Override
+    public List<Food> getData() {
+        return shopList;
+    }
+
+    @Override
     public boolean accept(Food food) {
         double condition = getExpirationPercent(food);
         if (condition >= 25 & condition < 100) {

@@ -1,5 +1,6 @@
 package ru.job4j.ood.lsp.parking;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -29,6 +30,7 @@ public class ParkingCarTest {
         assertTrue(parking.add(new Truck(312123)));
     }
 
+    @Ignore
     @Test
     public void testParkingFour() {
         Parking parking = new ParkingCar(2, 1);
@@ -37,6 +39,7 @@ public class ParkingCarTest {
         assertFalse(parking.add(new Truck(2)));
     }
 
+    @Ignore
     @Test
     public void testParkingFive() {
         Parking parking = new ParkingCar(5, 0);
@@ -45,6 +48,7 @@ public class ParkingCarTest {
         assertFalse(parking.add(new Truck(1)));
     }
 
+    @Ignore
     @Test
     public void testParkingSix() {
         Parking parking = new ParkingCar(2, 321);

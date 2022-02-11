@@ -13,30 +13,31 @@ public class ParkingCarTest {
         Parking parking = new ParkingCar(2, 1);
         assertTrue(parking.add(new Automobile()));
         assertTrue(parking.add(new Automobile()));
-        assertTrue(parking.add(new Truck(2213)));
+        assertTrue(parking.add(new Truck(5)));
     }
 
     @Test
     public void testParkingTwo() {
         Parking parking = new ParkingCar(2, 1);
-        assertTrue(parking.add(new Truck(312123)));
+        assertTrue(parking.add(new Truck(3)));
         assertTrue(parking.add(new Truck(2)));
     }
 
+    @Ignore
     @Test
     public void testParkingThree() {
         Parking parking = new ParkingCar(2, 1);
         assertTrue(parking.add(new Truck(2)));
-        assertTrue(parking.add(new Truck(312123)));
+        assertFalse(parking.add(new Truck(3)));
     }
 
     @Ignore
     @Test
     public void testParkingFour() {
         Parking parking = new ParkingCar(2, 1);
+        assertTrue(parking.add(new Truck(6)));
         assertTrue(parking.add(new Truck(2)));
-        assertTrue(parking.add(new Truck(2)));
-        assertFalse(parking.add(new Truck(2)));
+        assertFalse(parking.add(new Truck(1)));
     }
 
     @Ignore
